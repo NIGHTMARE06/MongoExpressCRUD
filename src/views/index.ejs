@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+</head>
+<body>
+  <!-- Title -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1><%= title %></h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <!-- Add a task -->
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-header text-white bg-dark">
+            Add a new task
+          </div>
+
+          <div class="card-body">
+            <form class="form" action="/add" method="post">
+              <div class="form-group">
+                <input class="form-control form-control-lg" type="text" name="text" id="task" placeholder="Your new task">
+              </div>
+              <div class="form-group">
+                <button class="btn btn-outline-success btn-lg form-control form-control-lg">Add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task list -->
+      <div class="col-md-7">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <th>Task</th>
+            <th>Done</th>
+            <th>Delete</th>
+          </thead>
+          <tbody>
+            <% for(task of tasks) {%>
+              <tr>
+                <td><%= task.text %></td>
+                <td>
+                  <a href="/turn_done/<%= task.id %>" class="btn <%= task.done ? 'btn-primary' : 'btn-secondary' %>">Done</a>
+                </td>
+                <td>
+                  <a href="/delete/<%= task.id %>" class="btn btn-outline-danger">Delete</a>
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script type="text/javascript">
+    document.getElementById('task').focus()
+  </script>
+</body>
+</html>
